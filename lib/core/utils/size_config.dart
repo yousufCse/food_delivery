@@ -1,17 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 class SizeConfig {
-  static late MediaQueryData _mediaQueryData;
-  static late double screenWidth;
-  static late double screenHeight;
-  static late Orientation orientation;
+  static double screenHeight = Get.context!.height;
+  static double screenWidth = Get.context!.width;
 
-  void init(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
+  double getHeight(double inputHeight) {
+    return (inputHeight * screenHeight) / 812.0;
+  }
 
-    screenHeight = _mediaQueryData.size.width;
-    screenWidth = _mediaQueryData.size.height;
-    orientation = _mediaQueryData.orientation;
+  double getWidth(double inputWidth) {
+    return (inputWidth * screenWidth) / 375.0;
   }
 
   double getProportionalScreenWidth(double width) {

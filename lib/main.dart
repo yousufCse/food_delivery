@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/features/home/pages/main_food_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const App());
@@ -10,7 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food Delivery',
       theme: ThemeData(

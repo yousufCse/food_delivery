@@ -1,5 +1,7 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/utils/colors.dart';
+import 'package:food_delivery/core/utils/dimentions.dart';
 import 'package:food_delivery/core/utils/size_config.dart';
 import 'package:food_delivery/core/widgets/big_text.dart';
 import 'package:food_delivery/core/widgets/icon_and_text.dart';
@@ -16,11 +18,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   PageController pageController = PageController(viewportFraction: 0.85);
   var _currentPageValue = 0.0;
   double _scaleFactor = 0.8;
-  double _height = 220;
+  double _height = SizeConfig().getHeight(220);
 
   @override
   void initState() {
     super.initState();
+
     pageController.addListener(() {
       setState(() {
         _currentPageValue = pageController.page!;
@@ -36,14 +39,30 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 320,
-      child: PageView.builder(
-          controller: pageController,
-          itemCount: 5,
-          itemBuilder: (context, position) {
-            return _buildPageItem(position);
-          }),
+    print('height: ${MediaQuery.of(context).size.height}');
+    return Column(
+      children: [
+        Container(
+          height: SizeConfig().getHeight(320),
+          child: PageView.builder(
+              controller: pageController,
+              itemCount: 5,
+              itemBuilder: (context, position) {
+                return _buildPageItem(position);
+              }),
+        ),
+        DotsIndicator(
+          dotsCount: 5,
+          position: _currentPageValue,
+          decorator: DotsDecorator(
+            size: const Size.square(9.0),
+            activeSize: const Size(18.0, 9.0),
+            activeColor: AppColors.mainColor,
+            activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+          ),
+        )
+      ],
     );
   }
 
@@ -91,7 +110,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 120,
+              height: SizeConfig().getHeight(130),
               width: SizeConfig.screenWidth,
               margin: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
               decoration: BoxDecoration(
@@ -119,7 +138,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     BigText(text: 'Chinese Side'),
-                    const SizedBox(height: 10),
+                    SizedBox(height: SizeConfig().getHeight(10)),
                     Row(
                       children: [
                         Wrap(
@@ -140,7 +159,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                         SmallText(text: 'comments')
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: SizeConfig().getHeight(15)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
